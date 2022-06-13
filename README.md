@@ -13,7 +13,7 @@ need to set Environment Variable:
  
 ```
 
-Will read all file in path, and rename with Date, Amount and Merchant:
+Will read all files in path, and rename with Date, Amount and Merchant:
 ``` python
 path = "C:/Users/zhzhen/OneDrive - Microsoft/Office Lens/"
 # path = "C:/tools/"
