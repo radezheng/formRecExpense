@@ -1,5 +1,9 @@
 # Form Recognizer for MS expense
 
+train with Form Recognizer Studio with your own invoices, then use the model to recognize forms.
+https://formrecognizer.appliedai.azure.com/studio/custommodel/
+
+
 need to set Environment Variable:
 ``` json
             "env": {
