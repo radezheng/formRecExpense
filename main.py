@@ -7,13 +7,16 @@ https://docs.microsoft.com/en-us/azure/applied-ai-services/form-recognizer/quick
 """
 
 import os
+from dotenv import load_dotenv
 
 from azure.core.credentials import AzureKeyCredential
 from azure.ai.formrecognizer import DocumentAnalysisClient
 
+load_dotenv()
+
 endpoint = os.getenv("FORM_ENDPOINT")
 key = os.getenv("FORM_KEY")
-model_id = "expenseje"
+model_id = "msexpense1229"
 
 document_analysis_client = DocumentAnalysisClient(
     endpoint=endpoint, credential=AzureKeyCredential(key)
@@ -22,15 +25,17 @@ document_analysis_client = DocumentAnalysisClient(
 # Make sure your document's type is included in the list of document types the custom model can analyze
 
 def rmspace(text):
-    if(text is None):
+    if(text is None ):
         return "none"
+    if(isinstance(text, int) or isinstance(text, float)):
+        return text
     text = text.replace("：", "").replace(",","").replace("，","")
     text = text.replace(")", "").replace(":","").replace("/","_")
     text = text.replace("(", "").replace("（", "").replace("）", "").replace("¥", "")
     return text.replace(" ", "")
 
 
-path = "C:/Users/zhzhen/OneDrive - Microsoft/Office Lens/old"
+path = "/Users/radezheng/OneDrive - Microsoft/Office Lens"
 # path = "C:/tools/"
 fn = [filename for filename in os.listdir(path) if filename.endswith((".pdf", "jpeg", "jpg", "png", "gif"))]
 print(fn)
@@ -49,6 +54,7 @@ for f in fn:
         # print("Document was analyzed by model with ID {}".format(result.model_id))
         fname = ""
         for name, field in document.fields.items():
+            
             field_value = rmspace(field.value if field.value else field.content)
             fname = fname + "{}_".format(field_value)
             # print("......value '{}'".format(field_value))
